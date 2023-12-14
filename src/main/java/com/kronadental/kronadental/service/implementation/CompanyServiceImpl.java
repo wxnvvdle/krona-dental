@@ -14,11 +14,16 @@ import com.kronadental.kronadental.repository.ManagerRepo;
 import com.kronadental.kronadental.repository.TechnikRepo;
 import com.kronadental.kronadental.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @Transactional
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -40,12 +45,19 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<CompanyDTO> findAll() {
-        return companyMapper.toDTO(companyRepo.findAll());
+        return companyMapper.toDTO(companyRepo.findAllByActiveTrue());
     }
 
     @Override
     public CompanyDTO getById(Long id) {
-        return companyMapper.toDTO(companyRepo.findById(id).orElseThrow());
+        Company company = companyRepo.findCompanyByIdAndActiveTrue(id);
+        if (company == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Company with id=" + id + " not found");
+        }
+
+        return companyMapper.toDTO(company);
     }
 
     @Override
@@ -97,6 +109,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void delete(Long id) {
-        companyRepo.deleteById(id);
+        Company company = companyRepo.findById(id).orElseThrow();
+        company.setActive(false);
+
+        companyRepo.save(company);
     }
 }

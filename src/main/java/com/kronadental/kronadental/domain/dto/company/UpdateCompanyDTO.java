@@ -15,6 +15,8 @@ import java.util.List;
 @Data
 public class UpdateCompanyDTO {
 
+    private Boolean active;
+
     private CompanyType companyType;
 
     private String name;

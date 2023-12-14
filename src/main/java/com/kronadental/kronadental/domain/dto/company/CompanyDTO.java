@@ -22,6 +22,8 @@ public class CompanyDTO {
 
     private Long id;
 
+    private Boolean active;
+
     private CompanyType companyType;
 
     private String name;

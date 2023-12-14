@@ -20,6 +20,9 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "active", columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean active;
+
     @Column(name = "type")
     private CompanyType companyType;
 

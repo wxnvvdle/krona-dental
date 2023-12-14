@@ -28,6 +28,10 @@ public class CompanyMapper {
     }
 
     public Company update(Company company, UpdateCompanyDTO companyDTO, List<Dentist> dentistList, List<Manager> managerList, List<Technik> technikList) {
+        //TODO add for update conditions if null (such us here)
+
+        if (companyDTO.getActive() != null) company.setActive(companyDTO.getActive());
+
         company.setCompanyType(companyDTO.getCompanyType());
         company.setName(companyDTO.getName());
         company.setAddress(companyDTO.getAddress());
@@ -44,6 +48,7 @@ public class CompanyMapper {
     }
 
     public CompanyDTO toDTO(Company company) {
+        //TODO: add conditions for null lists(not return: managerIdList, dentistIdList, technikIdList)
         CompanyDTO companyDTO = new CompanyDTO();
 
         List<Long> managerIdList = company.getManagerList().stream()
@@ -57,6 +62,7 @@ public class CompanyMapper {
                 .toList();
 
         companyDTO.setId(company.getId());
+        companyDTO.setActive(company.getActive());
         companyDTO.setCompanyType(company.getCompanyType());
         companyDTO.setName(company.getName());
         companyDTO.setAddress(company.getAddress());
