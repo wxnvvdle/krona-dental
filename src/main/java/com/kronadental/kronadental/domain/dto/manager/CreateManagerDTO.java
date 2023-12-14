@@ -1,4 +1,4 @@
-package com.kronadental.kronadental.domain.dto.dentist;
+package com.kronadental.kronadental.domain.dto.manager;
 
 import com.kronadental.kronadental.domain.dto.company.CompanyDTO;
 import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
@@ -11,14 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class DentistDTO {
-
-    private Long id;
+public class CreateManagerDTO {
 
     private String name;
 
-    private CompanyDTO company;
+    private Long companyId;
 
-    private List<TicketDTO> ticketList;
+    private List<Long> ticketIdList;
 
 }

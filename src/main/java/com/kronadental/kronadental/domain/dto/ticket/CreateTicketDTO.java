@@ -1,8 +1,5 @@
 package com.kronadental.kronadental.domain.dto.ticket;
 
-import com.kronadental.kronadental.domain.data.Dentist;
-import com.kronadental.kronadental.domain.data.Manager;
-import com.kronadental.kronadental.domain.data.Technik;
 import com.kronadental.kronadental.domain.dto.dentist.DentistDTO;
 import com.kronadental.kronadental.domain.dto.manager.ManagerDTO;
 import com.kronadental.kronadental.domain.dto.technik.TechnikDTO;
@@ -13,15 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TicketDTO {
-
-    private Long id;
+public class CreateTicketDTO {
 
     private Status status;
 

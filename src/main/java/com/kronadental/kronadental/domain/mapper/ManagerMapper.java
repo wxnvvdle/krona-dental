@@ -1,7 +1,11 @@
 package com.kronadental.kronadental.domain.mapper;
 
+import com.kronadental.kronadental.domain.data.Company;
 import com.kronadental.kronadental.domain.data.Manager;
+import com.kronadental.kronadental.domain.data.Ticket;
+import com.kronadental.kronadental.domain.dto.manager.CreateManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.ManagerDTO;
+import com.kronadental.kronadental.domain.dto.manager.UpdateManagerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +20,22 @@ public class ManagerMapper {
 
     @Autowired
     private TicketMapper ticketMapper;
+
+    public Manager create(Manager manager, CreateManagerDTO createManagerDTO, Company company, List<Ticket> ticketList) {
+        manager.setName(createManagerDTO.getName());
+        manager.setCompany(company);
+        manager.setTicketList(ticketList);
+
+        return manager;
+    }
+
+    public Manager update(Manager manager, UpdateManagerDTO updateManagerDTO, Company company, List<Ticket> ticketList) {
+        manager.setName(updateManagerDTO.getName());
+        manager.setCompany(company);
+        manager.setTicketList(ticketList);
+
+        return manager;
+    }
 
     public ManagerDTO toDTO(Manager manager) {
         ManagerDTO managerDTO = new ManagerDTO();

@@ -1,7 +1,12 @@
 package com.kronadental.kronadental.domain.mapper;
 
+import com.kronadental.kronadental.domain.data.Dentist;
+import com.kronadental.kronadental.domain.data.Manager;
+import com.kronadental.kronadental.domain.data.Technik;
 import com.kronadental.kronadental.domain.data.Ticket;
+import com.kronadental.kronadental.domain.dto.ticket.CreateTicketDTO;
 import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
+import com.kronadental.kronadental.domain.dto.ticket.UpdateTicketDTO;
 import com.kronadental.kronadental.domain.enums.LastStage;
 import com.kronadental.kronadental.domain.enums.PreparingStage;
 import com.kronadental.kronadental.domain.enums.Status;
@@ -14,38 +19,49 @@ import java.util.List;
 @Component
 public class TicketMapper {
 
-    @Autowired
-    private TechnikMapper technikMapper;
+    public Ticket create(Ticket ticket, CreateTicketDTO createTicketDTO, Technik technik, Dentist dentist, Manager manager) {
+        ticket.setStatus(createTicketDTO.getStatus());
+        ticket.setPreparingStage(createTicketDTO.getPreparingStage());
+        ticket.setLastStage(createTicketDTO.getLastStage());
+        ticket.setTechnik(technik);
+        ticket.setDentist(dentist);
+        ticket.setManager(manager);
 
-    @Autowired
-    private DentistMapper dentistMapper;
+        return ticket;
+    }
 
-    @Autowired
-    private ManagerMapper managerMapper;
+    public Ticket update(Ticket ticket, UpdateTicketDTO updateTicketDTO, Technik technik, Dentist dentist, Manager manager) {
+        ticket.setStatus(updateTicketDTO.getStatus());
+        ticket.setPreparingStage(updateTicketDTO.getPreparingStage());
+        ticket.setLastStage(updateTicketDTO.getLastStage());
+        ticket.setTechnik(technik);
+        ticket.setDentist(dentist);
+        ticket.setManager(manager);
 
-    public TicketDTO toDTO(Ticket ticket, Status status, PreparingStage preparingStage, LastStage lastStage) {
+        return ticket;
+    }
+
+    public TicketDTO toDTO(Ticket ticket) {
         TicketDTO ticketDTO = new TicketDTO();
 
         ticketDTO.setId(ticket.getId());
-        ticketDTO.setStatus(status);
-        ticketDTO.setPreparingStage(preparingStage);
-        ticketDTO.setLastStage(lastStage);
-        ticketDTO.setTechnik(technikMapper.toDTO(ticket.getTechnik()));
-        ticketDTO.setDentist(dentistMapper.toDTO(ticket.getDentist()));
-        ticketDTO.setManager(managerMapper.toDTO(ticket.getManager()));
+        ticketDTO.setStatus(ticket.getStatus());
+        ticketDTO.setPreparingStage(ticket.getPreparingStage());
+        ticketDTO.setLastStage(ticket.getLastStage());
+        ticketDTO.setTechnikId(ticket.getTechnik().getId());
+        ticketDTO.setDentistId(ticket.getDentist().getId());
+        ticketDTO.setManagerId(ticket.getManager().getId());
 
         return ticketDTO;
     }
 
-    List<TicketDTO> toDTO(List<Ticket> ticketList) {
+    public List<TicketDTO> toDTO(List<Ticket> ticketList) {
         List<TicketDTO> ticketDTOList = new ArrayList<>();
 
-        ticketList.forEach(ticket -> ticketDTOList.add(toDTO(ticket,
-                ticket.getStatus(),
-                ticket.getPreparingStage(),
-                ticket.getLastStage())));
+        ticketList.forEach(ticket -> ticketDTOList.add(toDTO(ticket)));
 
         return ticketDTOList;
     }
+
 
 }

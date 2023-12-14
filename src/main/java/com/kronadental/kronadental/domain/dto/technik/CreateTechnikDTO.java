@@ -1,7 +1,8 @@
-package com.kronadental.kronadental.domain.dto.dentist;
+package com.kronadental.kronadental.domain.dto.technik;
 
 import com.kronadental.kronadental.domain.dto.company.CompanyDTO;
 import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
+import com.kronadental.kronadental.domain.enums.Specialization;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +12,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class DentistDTO {
-
-    private Long id;
+public class CreateTechnikDTO {
 
     private String name;
 
-    private CompanyDTO company;
+    private Specialization specialization;
 
-    private List<TicketDTO> ticketList;
+    private Long companyId;
+
+    private List<Long> ticketIdList;
 
 }

@@ -24,10 +24,10 @@ public class Ticket {
     @Column(name = "status")
     private Status status;
 
-    @Column(name = "preparing stage")
+    @Column(name = "preparing_stage")
     private PreparingStage preparingStage;
 
-    @Column(name = "last stage")
+    @Column(name = "last_stage")
     private LastStage lastStage;
 
     @ManyToOne

@@ -8,17 +8,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class DentistDTO {
-
-    private Long id;
+public class CreateDentistDTO {
 
     private String name;
 
-    private CompanyDTO company;
+    private Long companyId;
 
-    private List<TicketDTO> ticketList;
-
+    private List<Long> ticketIdList;
 }

@@ -9,16 +9,13 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class DentistDTO {
-
-    private Long id;
+@AllArgsConstructor
+public class UpdateDentistDTO {
 
     private String name;
 
-    private CompanyDTO company;
+    private Long companyId;
 
-    private List<TicketDTO> ticketList;
-
+    private List<Long> ticketIdList;
 }
