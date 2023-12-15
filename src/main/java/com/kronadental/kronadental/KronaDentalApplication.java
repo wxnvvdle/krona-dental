@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class KronaDentalApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KronaDentalApplication.class, args);
+        SpringApplication application = new SpringApplication(KronaDentalApplication.class);
+        application.setAdditionalProfiles("default");
+        application.run(args);
     }
 
 }
