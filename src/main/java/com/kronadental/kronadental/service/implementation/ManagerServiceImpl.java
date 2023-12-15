@@ -1,10 +1,8 @@
 package com.kronadental.kronadental.service.implementation;
 
 import com.kronadental.kronadental.domain.data.Company;
-import com.kronadental.kronadental.domain.data.Dentist;
 import com.kronadental.kronadental.domain.data.Manager;
 import com.kronadental.kronadental.domain.data.Ticket;
-import com.kronadental.kronadental.domain.dto.dentist.CreateDentistDTO;
 import com.kronadental.kronadental.domain.dto.manager.CreateManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.ManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.UpdateManagerDTO;
@@ -18,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class ManagerServiceImpl implements ManagerService {
 
@@ -50,7 +48,7 @@ public class ManagerServiceImpl implements ManagerService {
         Company company = companyRepo.findById(createManagerDTO.getCompanyId()).orElseThrow();
         List<Ticket> ticketList = new ArrayList<>();
 
-        if(createManagerDTO.getTicketIdList() != null) {
+        if (createManagerDTO.getTicketIdList() != null) {
             ticketList = ticketRepo.findAllById(createManagerDTO.getTicketIdList());
         }
 
@@ -66,7 +64,7 @@ public class ManagerServiceImpl implements ManagerService {
         Company company = companyRepo.findById(updateManagerDTO.getCompanyId()).orElseThrow();
         List<Ticket> ticketList = new ArrayList<>();
 
-        if(updateManagerDTO.getTicketIdList() != null) {
+        if (updateManagerDTO.getTicketIdList() != null) {
             ticketList = ticketRepo.findAllById(updateManagerDTO.getTicketIdList());
         }
 

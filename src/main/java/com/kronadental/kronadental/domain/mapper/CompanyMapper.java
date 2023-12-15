@@ -7,7 +7,6 @@ import com.kronadental.kronadental.domain.data.Technik;
 import com.kronadental.kronadental.domain.dto.company.CompanyDTO;
 import com.kronadental.kronadental.domain.dto.company.CreateCompanyDTO;
 import com.kronadental.kronadental.domain.dto.company.UpdateCompanyDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

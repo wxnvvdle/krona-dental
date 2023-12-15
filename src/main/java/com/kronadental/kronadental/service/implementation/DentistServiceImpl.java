@@ -12,7 +12,6 @@ import com.kronadental.kronadental.repository.DentistRepo;
 import com.kronadental.kronadental.repository.TicketRepo;
 import com.kronadental.kronadental.service.DentistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class DentistServiceImpl implements DentistService {
         Company company = companyRepo.findById(createDentistDTO.getCompanyId()).orElseThrow();
         List<Ticket> ticketList = new ArrayList<>();
 
-        if (createDentistDTO.getTicketIdList() != null ) {
+        if (createDentistDTO.getTicketIdList() != null) {
             ticketList = ticketRepo.findAllById(createDentistDTO.getTicketIdList());
         }
         dentist = dentistMapper.create(dentist, createDentistDTO, company, ticketList);
@@ -63,7 +62,7 @@ public class DentistServiceImpl implements DentistService {
         Company company = companyRepo.findById(updateDentistDTO.getCompanyId()).orElseThrow();
         List<Ticket> ticketList = new ArrayList<>();
 
-        if (updateDentistDTO.getTicketIdList() != null ) {
+        if (updateDentistDTO.getTicketIdList() != null) {
             ticketList = ticketRepo.findAllById(updateDentistDTO.getTicketIdList());
         }
 

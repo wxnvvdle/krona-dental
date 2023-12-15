@@ -6,6 +6,7 @@ import com.kronadental.kronadental.domain.dto.manager.UpdateManagerDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public interface ManagerService {
 

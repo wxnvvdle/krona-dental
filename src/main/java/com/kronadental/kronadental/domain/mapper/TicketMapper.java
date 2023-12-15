@@ -7,10 +7,6 @@ import com.kronadental.kronadental.domain.data.Ticket;
 import com.kronadental.kronadental.domain.dto.ticket.CreateTicketDTO;
 import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
 import com.kronadental.kronadental.domain.dto.ticket.UpdateTicketDTO;
-import com.kronadental.kronadental.domain.enums.LastStage;
-import com.kronadental.kronadental.domain.enums.PreparingStage;
-import com.kronadental.kronadental.domain.enums.Status;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
