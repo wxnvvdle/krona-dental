@@ -69,6 +69,9 @@ public class TechnikServiceImpl implements TechnikService {
 
     @Override
     public void delete(Long id) {
-        technikRepo.deleteById(id);
+        Technik technik = technikRepo.findById(id).orElseThrow();
+        technik.setActive(false);
+
+        technikRepo.save(technik);
     }
 }

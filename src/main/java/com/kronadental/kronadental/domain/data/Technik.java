@@ -20,6 +20,9 @@ public class Technik {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "active", columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean active;
+
     @Column(name = "name")
     private String name;
 

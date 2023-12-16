@@ -12,7 +12,6 @@ import com.kronadental.kronadental.repository.DentistRepo;
 import com.kronadental.kronadental.repository.TicketRepo;
 import com.kronadental.kronadental.service.DentistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -74,6 +73,9 @@ public class DentistServiceImpl implements DentistService {
 
     @Override
     public void delete(Long id) {
-        dentistRepo.deleteById(id);
-    }
+        Dentist dentist = dentistRepo.findById(id).orElseThrow();
+        dentist.setActive(false);
+
+        dentistRepo.save(dentist);
+        }
 }

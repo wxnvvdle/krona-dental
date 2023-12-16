@@ -21,6 +21,9 @@ public class Ticket {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "active", columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean active;
+
     @Column(name = "status")
     private Status status;
 

@@ -1,10 +1,8 @@
 package com.kronadental.kronadental.service.implementation;
 
 import com.kronadental.kronadental.domain.data.Company;
-import com.kronadental.kronadental.domain.data.Dentist;
 import com.kronadental.kronadental.domain.data.Manager;
 import com.kronadental.kronadental.domain.data.Ticket;
-import com.kronadental.kronadental.domain.dto.dentist.CreateDentistDTO;
 import com.kronadental.kronadental.domain.dto.manager.CreateManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.ManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.UpdateManagerDTO;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 @Service
 public class ManagerServiceImpl implements ManagerService {
 
@@ -77,6 +74,9 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public void delete(Long id) {
-        managerRepo.deleteById(id);
+        Manager manager = managerRepo.findById(id).orElseThrow();
+        manager.setActive(false);
+
+        managerRepo.save(manager);
     }
 }

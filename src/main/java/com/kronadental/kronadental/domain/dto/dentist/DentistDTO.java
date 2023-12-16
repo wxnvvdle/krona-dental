@@ -15,6 +15,8 @@ public class DentistDTO {
 
     private Long id;
 
+    private Boolean active;
+
     private String name;
 
     private CompanyDTO company;

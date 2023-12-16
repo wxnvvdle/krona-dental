@@ -1,7 +1,5 @@
 package com.kronadental.kronadental.domain.dto.technik;
 
-import com.kronadental.kronadental.domain.data.Company;
-import com.kronadental.kronadental.domain.data.Ticket;
 import com.kronadental.kronadental.domain.dto.company.CompanyDTO;
 import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
 import com.kronadental.kronadental.domain.enums.Specialization;
@@ -9,9 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,6 +15,8 @@ import java.util.List;
 public class TechnikDTO {
 
     private Long id;
+
+    private Boolean active;
 
     private String name;
 

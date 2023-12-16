@@ -1,19 +1,21 @@
 package com.kronadental.kronadental.service.implementation;
 
-import com.kronadental.kronadental.domain.data.*;
+import com.kronadental.kronadental.domain.data.Dentist;
+import com.kronadental.kronadental.domain.data.Manager;
+import com.kronadental.kronadental.domain.data.Technik;
+import com.kronadental.kronadental.domain.data.Ticket;
 import com.kronadental.kronadental.domain.dto.ticket.CreateTicketDTO;
 import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
 import com.kronadental.kronadental.domain.dto.ticket.UpdateTicketDTO;
-import com.kronadental.kronadental.domain.enums.LastStage;
-import com.kronadental.kronadental.domain.enums.PreparingStage;
-import com.kronadental.kronadental.domain.enums.Status;
 import com.kronadental.kronadental.domain.mapper.TicketMapper;
-import com.kronadental.kronadental.repository.*;
+import com.kronadental.kronadental.repository.DentistRepo;
+import com.kronadental.kronadental.repository.ManagerRepo;
+import com.kronadental.kronadental.repository.TechnikRepo;
+import com.kronadental.kronadental.repository.TicketRepo;
 import com.kronadental.kronadental.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -72,6 +74,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void delete(Long id) {
-        ticketRepo.deleteById(id);
+        Ticket ticket = ticketRepo.findById(id).orElseThrow();
+        ticket.setActive(false);
+
+        ticketRepo.save(ticket);
     }
 }
