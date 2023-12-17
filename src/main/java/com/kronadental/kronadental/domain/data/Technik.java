@@ -24,6 +24,7 @@ public class Technik {
     private String name;
 
     @Column(name = "specialization")
+    @Enumerated(EnumType.STRING)
     private Specialization specialization;
 
     @ManyToOne

@@ -24,6 +24,7 @@ public class Company {
     private Boolean active;
 
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private CompanyType companyType;
 
     @Column(name = "name")

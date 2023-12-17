@@ -25,9 +25,11 @@ public class Ticket {
     private Status status;
 
     @Column(name = "preparing_stage")
+    @Enumerated(EnumType.STRING)
     private PreparingStage preparingStage;
 
     @Column(name = "last_stage")
+    @Enumerated(EnumType.STRING)
     private LastStage lastStage;
 
     @ManyToOne

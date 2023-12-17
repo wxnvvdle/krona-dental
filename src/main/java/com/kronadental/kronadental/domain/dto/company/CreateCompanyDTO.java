@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -17,11 +15,5 @@ public class CreateCompanyDTO {
     private String name;
 
     private String address;
-
-    private List<Long> managerIdList;
-
-    private List<Long> dentistIdList;
-
-    private List<Long> technikIdList;
 
 }
