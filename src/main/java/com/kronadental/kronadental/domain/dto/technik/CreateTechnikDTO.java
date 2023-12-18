@@ -1,7 +1,5 @@
 package com.kronadental.kronadental.domain.dto.technik;
 
-import com.kronadental.kronadental.domain.dto.company.CompanyDTO;
-import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
 import com.kronadental.kronadental.domain.enums.Specialization;
 import lombok.AllArgsConstructor;
 import lombok.Data;

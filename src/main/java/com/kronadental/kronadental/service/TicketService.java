@@ -6,6 +6,7 @@ import com.kronadental.kronadental.domain.dto.ticket.UpdateTicketDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public interface TicketService {
 

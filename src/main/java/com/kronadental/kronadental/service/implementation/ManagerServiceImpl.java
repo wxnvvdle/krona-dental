@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class ManagerServiceImpl implements ManagerService {
 
@@ -47,7 +48,7 @@ public class ManagerServiceImpl implements ManagerService {
         Company company = companyRepo.findById(createManagerDTO.getCompanyId()).orElseThrow();
         List<Ticket> ticketList = new ArrayList<>();
 
-        if(createManagerDTO.getTicketIdList() != null) {
+        if (createManagerDTO.getTicketIdList() != null) {
             ticketList = ticketRepo.findAllById(createManagerDTO.getTicketIdList());
         }
 
@@ -63,7 +64,7 @@ public class ManagerServiceImpl implements ManagerService {
         Company company = companyRepo.findById(updateManagerDTO.getCompanyId()).orElseThrow();
         List<Ticket> ticketList = new ArrayList<>();
 
-        if(updateManagerDTO.getTicketIdList() != null) {
+        if (updateManagerDTO.getTicketIdList() != null) {
             ticketList = ticketRepo.findAllById(updateManagerDTO.getTicketIdList());
         }
 

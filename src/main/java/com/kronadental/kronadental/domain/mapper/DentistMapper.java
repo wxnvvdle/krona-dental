@@ -21,7 +21,7 @@ public class DentistMapper {
     @Autowired
     private TicketMapper ticketMapper;
 
-    public Dentist create(Dentist dentist, CreateDentistDTO createDentistDTO, Company company, List<Ticket> ticketList){
+    public Dentist create(Dentist dentist, CreateDentistDTO createDentistDTO, Company company, List<Ticket> ticketList) {
         dentist.setName(createDentistDTO.getName());
         dentist.setCompany(company);
         dentist.setTicketList(ticketList);
@@ -29,7 +29,7 @@ public class DentistMapper {
         return dentist;
     }
 
-    public Dentist update(Dentist dentistToUpdate, UpdateDentistDTO updateDentistDTO, Company company, List<Ticket> ticketList){
+    public Dentist update(Dentist dentistToUpdate, UpdateDentistDTO updateDentistDTO, Company company, List<Ticket> ticketList) {
         dentistToUpdate.setName(updateDentistDTO.getName());
         dentistToUpdate.setCompany(company);
         dentistToUpdate.setTicketList(ticketList);

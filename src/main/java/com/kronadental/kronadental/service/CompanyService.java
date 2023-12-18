@@ -10,15 +10,15 @@ import java.util.List;
 @Service
 public interface CompanyService {
 
-   List<CompanyDTO> findAll();
+    List<CompanyDTO> findAll();
 
-   CompanyDTO getById(Long id);
+    CompanyDTO getById(Long id);
 
-   CompanyDTO create(CreateCompanyDTO createCompanyDTO);
+    CompanyDTO create(CreateCompanyDTO createCompanyDTO);
 
-   CompanyDTO update(Long id, UpdateCompanyDTO updateCompanyDTO);
+    CompanyDTO update(Long id, UpdateCompanyDTO updateCompanyDTO);
 
-   void delete(Long id);
+    void delete(Long id);
 
 }
 

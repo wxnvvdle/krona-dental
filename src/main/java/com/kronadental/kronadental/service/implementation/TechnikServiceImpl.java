@@ -45,7 +45,7 @@ public class TechnikServiceImpl implements TechnikService {
     @Override
     public TechnikDTO create(CreateTechnikDTO createTechnikDTO) {
         Technik technik = new Technik();
-         Company company = companyRepo.findById(createTechnikDTO.getCompanyId()).orElseThrow();
+        Company company = companyRepo.findById(createTechnikDTO.getCompanyId()).orElseThrow();
         List<Ticket> ticketList = new ArrayList<>();
 
         if (createTechnikDTO.getTicketIdList() != null) {

@@ -1,8 +1,5 @@
 package com.kronadental.kronadental.domain.dto.ticket;
 
-import com.kronadental.kronadental.domain.dto.dentist.DentistDTO;
-import com.kronadental.kronadental.domain.dto.manager.ManagerDTO;
-import com.kronadental.kronadental.domain.dto.technik.TechnikDTO;
 import com.kronadental.kronadental.domain.enums.LastStage;
 import com.kronadental.kronadental.domain.enums.PreparingStage;
 import com.kronadental.kronadental.domain.enums.Status;

@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Getter
 @Setter
@@ -28,9 +28,11 @@ public class Ticket {
     private Status status;
 
     @Column(name = "preparing_stage")
+    @Enumerated(EnumType.STRING)
     private PreparingStage preparingStage;
 
     @Column(name = "last_stage")
+    @Enumerated(EnumType.STRING)
     private LastStage lastStage;
 
     @ManyToOne

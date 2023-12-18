@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Getter
@@ -24,6 +24,7 @@ public class Company {
     private Boolean active;
 
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private CompanyType companyType;
 
     @Column(name = "name")
