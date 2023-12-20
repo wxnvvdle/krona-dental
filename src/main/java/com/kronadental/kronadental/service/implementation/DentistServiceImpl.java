@@ -2,7 +2,6 @@ package com.kronadental.kronadental.service.implementation;
 
 import com.kronadental.kronadental.domain.data.Company;
 import com.kronadental.kronadental.domain.data.Dentist;
-import com.kronadental.kronadental.domain.data.Ticket;
 import com.kronadental.kronadental.domain.dto.dentist.CreateDentistDTO;
 import com.kronadental.kronadental.domain.dto.dentist.DentistDTO;
 import com.kronadental.kronadental.domain.dto.dentist.UpdateDentistDTO;
@@ -12,9 +11,10 @@ import com.kronadental.kronadental.repository.DentistRepo;
 import com.kronadental.kronadental.repository.TicketRepo;
 import com.kronadental.kronadental.service.DentistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,31 +44,39 @@ public class DentistServiceImpl implements DentistService {
 
     @Override
     public DentistDTO create(CreateDentistDTO createDentistDTO) {
-        Dentist dentist = new Dentist();
-        Company company = companyRepo.findById(createDentistDTO.getCompanyId()).orElseThrow();
-        List<Ticket> ticketList = new ArrayList<>();
+        Dentist dentist = dentistMapper.create(createDentistDTO);
 
-        if (createDentistDTO.getTicketIdList() != null) {
-            ticketList = ticketRepo.findAllById(createDentistDTO.getTicketIdList());
+        Company company = companyRepo.findCompanyByIdAndActiveTrue(createDentistDTO.getCompanyId());
+        if(company != null) {
+            dentist.setCompany(company);
         }
-        dentist = dentistMapper.create(dentist, createDentistDTO, company, ticketList);
+        if (createDentistDTO.getTicketIdList() != null) {
+            dentist.setTicketList(ticketRepo.findAllByIdAndActiveTrue(createDentistDTO.getTicketIdList()));
+        }
 
         return dentistMapper.toDTO(dentistRepo.save(dentist));
     }
 
     @Override
     public DentistDTO update(Long id, UpdateDentistDTO updateDentistDTO) {
-        Dentist dentistToUpdate = dentistRepo.findById(id).orElseThrow();
-        Company company = companyRepo.findById(updateDentistDTO.getCompanyId()).orElseThrow();
-        List<Ticket> ticketList = new ArrayList<>();
+        Dentist dentist = dentistRepo.findByIdAndActiveTrue(id).orElseThrow();
+        if(dentist == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Dentist with id=" + id + " not found");
+        }
+        dentist = dentistMapper.update(dentist, updateDentistDTO);
+        Company company = companyRepo.findCompanyByIdAndActiveTrue(updateDentistDTO.getCompanyId());
 
-        if (updateDentistDTO.getTicketIdList() != null) {
-            ticketList = ticketRepo.findAllById(updateDentistDTO.getTicketIdList());
+        if(company != null) {
+            dentist.setCompany(company);
         }
 
-        dentistToUpdate = dentistMapper.update(dentistToUpdate, updateDentistDTO, company, ticketList);
+        if (updateDentistDTO.getTicketIdList() != null) {
+            dentist.setTicketList(ticketRepo.findAllByIdAndActiveTrue(updateDentistDTO.getTicketIdList()));
+        }
 
-        return dentistMapper.toDTO(dentistRepo.save(dentistToUpdate));
+        return dentistMapper.toDTO(dentistRepo.save(dentist));
     }
 
     @Override
@@ -77,5 +85,5 @@ public class DentistServiceImpl implements DentistService {
         dentist.setActive(false);
 
         dentistRepo.save(dentist);
-        }
+    }
 }

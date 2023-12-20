@@ -14,7 +14,9 @@ import com.kronadental.kronadental.repository.TechnikRepo;
 import com.kronadental.kronadental.repository.TicketRepo;
 import com.kronadental.kronadental.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -50,25 +52,50 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketDTO create(CreateTicketDTO createTicketDTO) {
-        Ticket ticket = new Ticket();
-        Technik technik = technikRepo.findById(createTicketDTO.getTechnikId()).orElseThrow();
-        Dentist dentist = dentistRepo.findById(createTicketDTO.getDentistId()).orElseThrow();
-        Manager manager = managerRepo.findById(createTicketDTO.getManagerId()).orElseThrow();
+        Ticket ticket = ticketMapper.create(createTicketDTO);
 
-        ticket = ticketMapper.create(ticket, createTicketDTO, technik, dentist, manager);
+        Technik technik = technikRepo.findByIdAndActiveTrue(createTicketDTO.getTechnikId()).orElseThrow();
+        if (technik != null) {
+            ticket.setTechnik(technik);
+        }
+
+        Dentist dentist = dentistRepo.findByIdAndActiveTrue(createTicketDTO.getDentistId()).orElseThrow();
+        if (dentist != null) {
+            ticket.setDentist(dentist);
+        }
+
+        Manager manager = managerRepo.findByIdAndActiveTrue(createTicketDTO.getManagerId()).orElseThrow();
+        if (manager != null) {
+            ticket.setManager(manager);
+        }
 
         return ticketMapper.toDTO(ticketRepo.save(ticket));
     }
 
     @Override
     public TicketDTO update(Long id, UpdateTicketDTO updateTicketDTO) {
-        Ticket ticket = ticketRepo.findById(id).orElseThrow();
-        Technik technik = technikRepo.findById(updateTicketDTO.getTechnikId()).orElseThrow();
-        Dentist dentist = dentistRepo.findById(updateTicketDTO.getDentistId()).orElseThrow();
-        Manager manager = managerRepo.findById(updateTicketDTO.getManagerId()).orElseThrow();
+        Ticket ticket = ticketRepo.findByIdAndActiveTrue(id).orElseThrow();
+        if(ticket == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Ticket with id=" + id + " not found");
+        }
+        ticket = ticketMapper.update(ticket, updateTicketDTO);
 
-        ticket = ticketMapper.update(ticket, updateTicketDTO, technik, dentist, manager);
+        Technik technik = technikRepo.findByIdAndActiveTrue(updateTicketDTO.getTechnikId()).orElseThrow();
+        if (technik != null) {
+            ticket.setTechnik(technik);
+        }
 
+        Dentist dentist = dentistRepo.findByIdAndActiveTrue(updateTicketDTO.getDentistId()).orElseThrow();
+        if (dentist != null) {
+            ticket.setDentist(dentist);
+        }
+
+        Manager manager = managerRepo.findByIdAndActiveTrue(updateTicketDTO.getManagerId()).orElseThrow();
+        if (manager != null) {
+            ticket.setManager(manager);
+        }
 
         return ticketMapper.toDTO(ticketRepo.save(ticket));
     }

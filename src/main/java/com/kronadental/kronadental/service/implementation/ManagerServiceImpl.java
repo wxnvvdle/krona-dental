@@ -2,7 +2,6 @@ package com.kronadental.kronadental.service.implementation;
 
 import com.kronadental.kronadental.domain.data.Company;
 import com.kronadental.kronadental.domain.data.Manager;
-import com.kronadental.kronadental.domain.data.Ticket;
 import com.kronadental.kronadental.domain.dto.manager.CreateManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.ManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.UpdateManagerDTO;
@@ -12,9 +11,10 @@ import com.kronadental.kronadental.repository.ManagerRepo;
 import com.kronadental.kronadental.repository.TicketRepo;
 import com.kronadental.kronadental.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,15 +44,15 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public ManagerDTO create(CreateManagerDTO createManagerDTO) {
-        Manager manager = new Manager();
-        Company company = companyRepo.findById(createManagerDTO.getCompanyId()).orElseThrow();
-        List<Ticket> ticketList = new ArrayList<>();
+        Manager manager = managerMapper.create(createManagerDTO);
 
-        if (createManagerDTO.getTicketIdList() != null) {
-            ticketList = ticketRepo.findAllById(createManagerDTO.getTicketIdList());
+        if (createManagerDTO.getCompanyId() != null) {
+            manager.setCompany(companyRepo.findCompanyByIdAndActiveTrue(createManagerDTO.getCompanyId()));
         }
 
-        manager = managerMapper.create(manager, createManagerDTO, company, ticketList);
+        if (createManagerDTO.getTicketIdList() != null) {
+            manager.setTicketList(ticketRepo.findAllByIdAndActiveTrue(createManagerDTO.getTicketIdList()));
+        }
 
         return managerMapper.toDTO(managerRepo.save(manager));
     }
@@ -60,15 +60,22 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public ManagerDTO update(Long id, UpdateManagerDTO updateManagerDTO) {
         //TODO check orElseThrow Exception
-        Manager manager = managerRepo.findById(id).orElseThrow();
-        Company company = companyRepo.findById(updateManagerDTO.getCompanyId()).orElseThrow();
-        List<Ticket> ticketList = new ArrayList<>();
+        Manager manager = managerRepo.findByIdAndActiveTrue(id).orElseThrow();
+        if(manager == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Manager with id=" + id + " not found");
+        }
+        manager = managerMapper.update(manager, updateManagerDTO);
+        Company company = companyRepo.findCompanyByIdAndActiveTrue(updateManagerDTO.getCompanyId());
 
-        if (updateManagerDTO.getTicketIdList() != null) {
-            ticketList = ticketRepo.findAllById(updateManagerDTO.getTicketIdList());
+        if(company != null) {
+            manager.setCompany(company);
         }
 
-        manager = managerMapper.update(manager, updateManagerDTO, company, ticketList);
+        if (updateManagerDTO.getTicketIdList() != null) {
+            manager.setTicketList(ticketRepo.findAllByIdAndActiveTrue(updateManagerDTO.getTicketIdList()));
+        }
 
         return managerMapper.toDTO(managerRepo.save(manager));
     }
