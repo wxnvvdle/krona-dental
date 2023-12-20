@@ -34,12 +34,12 @@ public class TechnikServiceImpl implements TechnikService {
 
     @Override
     public TechnikDTO getById(Long id) {
-        return technikMapper.toDTO(technikRepo.findById(id).orElseThrow());
+        return technikMapper.toDTO(technikRepo.findByIdAndActiveTrue(id));
     }
 
     @Override
     public List<TechnikDTO> getAll() {
-        return technikMapper.toDTO(technikRepo.findAll());
+        return technikMapper.toDTO(technikRepo.findAllByActiveTrue());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TechnikServiceImpl implements TechnikService {
 
     @Override
     public TechnikDTO update(Long id, UpdateTechnikDTO updateTechnikDTO) {
-        Technik technik = technikRepo.findByIdAndActiveTrue(id).orElseThrow();
+        Technik technik = technikRepo.findByIdAndActiveTrue(id);
         if(technik == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,

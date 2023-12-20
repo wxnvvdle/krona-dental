@@ -41,30 +41,30 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketDTO getById(Long id) {
-        Ticket ticket = ticketRepo.findById(id).orElseThrow();
+        Ticket ticket = ticketRepo.findByIdAndActiveTrue(id);
         return ticketMapper.toDTO(ticket);
     }
 
     @Override
     public List<TicketDTO> getAll() {
-        return null;
+        return ticketMapper.toDTO(ticketRepo.findAllByActiveTrue());
     }
 
     @Override
     public TicketDTO create(CreateTicketDTO createTicketDTO) {
         Ticket ticket = ticketMapper.create(createTicketDTO);
 
-        Technik technik = technikRepo.findByIdAndActiveTrue(createTicketDTO.getTechnikId()).orElseThrow();
+        Technik technik = technikRepo.findByIdAndActiveTrue(createTicketDTO.getTechnikId());
         if (technik != null) {
             ticket.setTechnik(technik);
         }
 
-        Dentist dentist = dentistRepo.findByIdAndActiveTrue(createTicketDTO.getDentistId()).orElseThrow();
+        Dentist dentist = dentistRepo.findByIdAndActiveTrue(createTicketDTO.getDentistId());
         if (dentist != null) {
             ticket.setDentist(dentist);
         }
 
-        Manager manager = managerRepo.findByIdAndActiveTrue(createTicketDTO.getManagerId()).orElseThrow();
+        Manager manager = managerRepo.findByIdAndActiveTrue(createTicketDTO.getManagerId());
         if (manager != null) {
             ticket.setManager(manager);
         }
@@ -74,7 +74,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketDTO update(Long id, UpdateTicketDTO updateTicketDTO) {
-        Ticket ticket = ticketRepo.findByIdAndActiveTrue(id).orElseThrow();
+        Ticket ticket = ticketRepo.findByIdAndActiveTrue(id);
         if(ticket == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
@@ -82,17 +82,17 @@ public class TicketServiceImpl implements TicketService {
         }
         ticket = ticketMapper.update(ticket, updateTicketDTO);
 
-        Technik technik = technikRepo.findByIdAndActiveTrue(updateTicketDTO.getTechnikId()).orElseThrow();
+        Technik technik = technikRepo.findByIdAndActiveTrue(updateTicketDTO.getTechnikId());
         if (technik != null) {
             ticket.setTechnik(technik);
         }
 
-        Dentist dentist = dentistRepo.findByIdAndActiveTrue(updateTicketDTO.getDentistId()).orElseThrow();
+        Dentist dentist = dentistRepo.findByIdAndActiveTrue(updateTicketDTO.getDentistId());
         if (dentist != null) {
             ticket.setDentist(dentist);
         }
 
-        Manager manager = managerRepo.findByIdAndActiveTrue(updateTicketDTO.getManagerId()).orElseThrow();
+        Manager manager = managerRepo.findByIdAndActiveTrue(updateTicketDTO.getManagerId());
         if (manager != null) {
             ticket.setManager(manager);
         }
@@ -102,7 +102,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void delete(Long id) {
-        Ticket ticket = ticketRepo.findById(id).orElseThrow();
+        Ticket ticket = ticketRepo.findByIdAndActiveTrue(id);
         ticket.setActive(false);
 
         ticketRepo.save(ticket);
