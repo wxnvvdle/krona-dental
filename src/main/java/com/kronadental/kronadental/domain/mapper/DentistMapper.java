@@ -6,6 +6,7 @@ import com.kronadental.kronadental.domain.dto.dentist.DentistDTO;
 import com.kronadental.kronadental.domain.dto.dentist.UpdateDentistDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface DentistMapper {
@@ -15,7 +16,7 @@ public interface DentistMapper {
     public Dentist create(CreateDentistDTO createDentistDTO);
 
     @Mapping(target = "id", ignore = true)
-    public Dentist update(Dentist dentist, UpdateDentistDTO updateDentistDTO);
+    public Dentist update(@MappingTarget Dentist dentist, UpdateDentistDTO updateDentistDTO);
 
     public DentistDTO toDTO(Dentist dentist);
 

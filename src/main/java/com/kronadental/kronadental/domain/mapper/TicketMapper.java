@@ -6,6 +6,7 @@ import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
 import com.kronadental.kronadental.domain.dto.ticket.UpdateTicketDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface TicketMapper {
@@ -15,7 +16,7 @@ public interface TicketMapper {
     public Ticket create(CreateTicketDTO createTicketDTO);
 
     @Mapping(target = "id", ignore = true)
-    public Ticket update(Ticket ticket, UpdateTicketDTO updateTicketDTO);
+    public Ticket update(@MappingTarget Ticket ticket, UpdateTicketDTO updateTicketDTO);
 
     public TicketDTO toDTO(Ticket ticket);
 

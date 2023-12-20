@@ -1,18 +1,12 @@
 package com.kronadental.kronadental.service.implementation;
 
 import com.kronadental.kronadental.domain.data.Company;
-import com.kronadental.kronadental.domain.data.Dentist;
-import com.kronadental.kronadental.domain.data.Manager;
-import com.kronadental.kronadental.domain.data.Technik;
 import com.kronadental.kronadental.domain.dto.company.CompanyDTO;
 import com.kronadental.kronadental.domain.dto.company.CreateCompanyDTO;
 import com.kronadental.kronadental.domain.dto.company.UpdateCompanyDTO;
 import com.kronadental.kronadental.domain.mapper.CompanyMapper;
 import com.kronadental.kronadental.domain.mapper.CompanyMapperList;
 import com.kronadental.kronadental.repository.CompanyRepo;
-import com.kronadental.kronadental.repository.DentistRepo;
-import com.kronadental.kronadental.repository.ManagerRepo;
-import com.kronadental.kronadental.repository.TechnikRepo;
 import com.kronadental.kronadental.service.CompanyService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -32,15 +25,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyMapperList companyMapperList;
-
-    @Autowired
-    private DentistRepo dentistRepo;
-
-    @Autowired
-    private ManagerRepo managerRepo;
-
-    @Autowired
-    private TechnikRepo technikRepo;
 
     @Autowired
     private CompanyRepo companyRepo;
@@ -70,7 +54,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyDTO update(Long id, UpdateCompanyDTO updateCompanyDTO) {
         Company company = companyRepo.findById(id).orElseThrow();
-        return companyMapper.toDTO(companyRepo.save(companyMapper.update(updateCompanyDTO, company)));
+        return companyMapper.toDTO(companyRepo.save(companyMapper.update(company, updateCompanyDTO)));
     }
 
     @Override

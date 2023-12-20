@@ -30,7 +30,7 @@ public interface CompanyMapper {
     @Mapping(target = "managerList", ignore = true)
     @Mapping(target = "dentistList", ignore = true)
     @Mapping(target = "technikList", ignore = true)
-    Company update(UpdateCompanyDTO updateCompanyDTO, @MappingTarget Company company);
+    Company update( @MappingTarget Company company, UpdateCompanyDTO updateCompanyDTO);
 
     @Mapping(target = "managerIdList", source = "managerList", qualifiedByName = "mapToManagerIdList")
     @Mapping(target = "dentistIdList", source = "dentistList", qualifiedByName = "mapToDentistIdList")

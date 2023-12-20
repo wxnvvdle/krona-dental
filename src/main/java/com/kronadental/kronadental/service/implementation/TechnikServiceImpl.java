@@ -48,9 +48,10 @@ public class TechnikServiceImpl implements TechnikService {
 
     @Override
     public TechnikDTO create(CreateTechnikDTO createTechnikDTO) {
-        Technik technik = new Technik();
+        Technik technik = technikMapper.create(createTechnikDTO);
         Company company = companyRepo.findCompanyByIdAndActiveTrue(createTechnikDTO.getCompanyId());
-        if(company != null) {
+
+        if (company != null) {
             technik.setCompany(company);
         }
         if (createTechnikDTO.getTicketIdList() != null) {
@@ -62,7 +63,7 @@ public class TechnikServiceImpl implements TechnikService {
     @Override
     public TechnikDTO update(Long id, UpdateTechnikDTO updateTechnikDTO) {
         Technik technik = technikRepo.findByIdAndActiveTrue(id);
-        if(technik == null) {
+        if (technik == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
                     "Technik with id=" + id + " not found");
@@ -70,7 +71,7 @@ public class TechnikServiceImpl implements TechnikService {
         technik = technikMapper.update(technik, updateTechnikDTO);
         Company company = companyRepo.findCompanyByIdAndActiveTrue(updateTechnikDTO.getCompanyId());
 
-        if(company != null) {
+        if (company != null) {
             technik.setCompany(company);
         }
 
