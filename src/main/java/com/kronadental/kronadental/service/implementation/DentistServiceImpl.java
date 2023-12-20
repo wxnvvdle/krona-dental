@@ -34,12 +34,12 @@ public class DentistServiceImpl implements DentistService {
 
     @Override
     public DentistDTO getById(Long id) {
-        return dentistMapper.toDTO(dentistRepo.getById(id));
+        return dentistMapper.toDTO(dentistRepo.findDentistByIdAndActiveTrue(id));
     }
 
     @Override
     public List<DentistDTO> getAll() {
-        return dentistMapper.toDTO(dentistRepo.findAll());
+        return dentistMapper.toDTO(dentistRepo.findAllByActiveTrue());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class DentistServiceImpl implements DentistService {
 
     @Override
     public DentistDTO update(Long id, UpdateDentistDTO updateDentistDTO) {
-        Dentist dentist = dentistRepo.findByIdAndActiveTrue(id).orElseThrow();
+        Dentist dentist = dentistRepo.findByIdAndActiveTrue(id);
         if(dentist == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,

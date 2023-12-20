@@ -34,12 +34,12 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public ManagerDTO getById(Long id) {
-        return managerMapper.toDTO(managerRepo.getById(id));
+        return managerMapper.toDTO(managerRepo.findByIdAndActiveTrue(id));
     }
 
     @Override
     public List<ManagerDTO> getAll() {
-        return managerMapper.toDTO(managerRepo.findAll());
+        return managerMapper.toDTO(managerRepo.findAllByActiveTrue());
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public ManagerDTO update(Long id, UpdateManagerDTO updateManagerDTO) {
         //TODO check orElseThrow Exception
-        Manager manager = managerRepo.findByIdAndActiveTrue(id).orElseThrow();
+        Manager manager = managerRepo.findByIdAndActiveTrue(id);
         if(manager == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
