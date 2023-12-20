@@ -6,6 +6,7 @@ import com.kronadental.kronadental.domain.dto.dentist.CreateDentistDTO;
 import com.kronadental.kronadental.domain.dto.dentist.DentistDTO;
 import com.kronadental.kronadental.domain.dto.dentist.UpdateDentistDTO;
 import com.kronadental.kronadental.domain.mapper.DentistMapper;
+import com.kronadental.kronadental.domain.mapper.DentistMapperList;
 import com.kronadental.kronadental.repository.CompanyRepo;
 import com.kronadental.kronadental.repository.DentistRepo;
 import com.kronadental.kronadental.repository.TicketRepo;
@@ -24,6 +25,9 @@ public class DentistServiceImpl implements DentistService {
     private DentistMapper dentistMapper;
 
     @Autowired
+    private DentistMapperList dentistMapperList;
+
+    @Autowired
     private DentistRepo dentistRepo;
 
     @Autowired
@@ -39,7 +43,7 @@ public class DentistServiceImpl implements DentistService {
 
     @Override
     public List<DentistDTO> getAll() {
-        return dentistMapper.toDTO(dentistRepo.findAllByActiveTrue());
+        return dentistMapperList.toDTOList(dentistRepo.findAllByActiveTrue());
     }
 
     @Override

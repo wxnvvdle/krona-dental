@@ -6,6 +6,7 @@ import com.kronadental.kronadental.domain.dto.manager.CreateManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.ManagerDTO;
 import com.kronadental.kronadental.domain.dto.manager.UpdateManagerDTO;
 import com.kronadental.kronadental.domain.mapper.ManagerMapper;
+import com.kronadental.kronadental.domain.mapper.ManagerMapperList;
 import com.kronadental.kronadental.repository.CompanyRepo;
 import com.kronadental.kronadental.repository.ManagerRepo;
 import com.kronadental.kronadental.repository.TicketRepo;
@@ -24,6 +25,9 @@ public class ManagerServiceImpl implements ManagerService {
     private ManagerMapper managerMapper;
 
     @Autowired
+    private ManagerMapperList managerMapperList;
+
+    @Autowired
     private ManagerRepo managerRepo;
 
     @Autowired
@@ -39,7 +43,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<ManagerDTO> getAll() {
-        return managerMapper.toDTO(managerRepo.findAllByActiveTrue());
+        return managerMapperList.toDTOList(managerRepo.findAllByActiveTrue());
     }
 
     @Override

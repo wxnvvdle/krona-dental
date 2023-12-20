@@ -8,6 +8,7 @@ import com.kronadental.kronadental.domain.dto.ticket.CreateTicketDTO;
 import com.kronadental.kronadental.domain.dto.ticket.TicketDTO;
 import com.kronadental.kronadental.domain.dto.ticket.UpdateTicketDTO;
 import com.kronadental.kronadental.domain.mapper.TicketMapper;
+import com.kronadental.kronadental.domain.mapper.TicketMapperList;
 import com.kronadental.kronadental.repository.DentistRepo;
 import com.kronadental.kronadental.repository.ManagerRepo;
 import com.kronadental.kronadental.repository.TechnikRepo;
@@ -25,6 +26,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private TicketMapper ticketMapper;
+
+    @Autowired
+    private TicketMapperList ticketMapperList;
 
     @Autowired
     private TicketRepo ticketRepo;
@@ -47,7 +51,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<TicketDTO> getAll() {
-        return ticketMapper.toDTO(ticketRepo.findAllByActiveTrue());
+        return ticketMapperList.toDTOList(ticketRepo.findAllByActiveTrue());
     }
 
     @Override
@@ -102,7 +106,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void delete(Long id) {
-        Ticket ticket = ticketRepo.findByIdAndActiveTrue(id);
+        Ticket ticket = ticketRepo.findById(id).orElseThrow();
         ticket.setActive(false);
 
         ticketRepo.save(ticket);

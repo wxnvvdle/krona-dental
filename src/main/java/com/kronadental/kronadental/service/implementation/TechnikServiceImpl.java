@@ -6,6 +6,7 @@ import com.kronadental.kronadental.domain.dto.technik.CreateTechnikDTO;
 import com.kronadental.kronadental.domain.dto.technik.TechnikDTO;
 import com.kronadental.kronadental.domain.dto.technik.UpdateTechnikDTO;
 import com.kronadental.kronadental.domain.mapper.TechnikMapper;
+import com.kronadental.kronadental.domain.mapper.TechnikMapperList;
 import com.kronadental.kronadental.repository.CompanyRepo;
 import com.kronadental.kronadental.repository.TechnikRepo;
 import com.kronadental.kronadental.repository.TicketRepo;
@@ -27,6 +28,9 @@ public class TechnikServiceImpl implements TechnikService {
     private TechnikMapper technikMapper;
 
     @Autowired
+    private TechnikMapperList technikMapperList;
+
+    @Autowired
     private CompanyRepo companyRepo;
 
     @Autowired
@@ -39,7 +43,7 @@ public class TechnikServiceImpl implements TechnikService {
 
     @Override
     public List<TechnikDTO> getAll() {
-        return technikMapper.toDTO(technikRepo.findAllByActiveTrue());
+        return technikMapperList.toDTOList(technikRepo.findAllByActiveTrue());
     }
 
     @Override
